@@ -6,8 +6,12 @@
   - [[#vim][vim]]
   - [[#shell][shell]]
   - [[#git][git]]
+- [[#programs][Programs]]
+  - [[#root][ROOT]]
+  - [[#geant4][Geant4]]
 - [[#setup][Setup]]
-  - [[#emacs-setup][emacs setup]]
+  - [[#emacs-setup][Emacs setup]]
+  - [[#vim-setup][Vim setup]]
   - [[#pip3][pip3]]
   - [[#sudo-apt-install][sudo apt install]]
   - [[#homebrew][homebrew]]
@@ -34,6 +38,21 @@ using .zshrc, .bashrc, and .bash_profile
 using .gitconfig, global settings for username and email
 - [[file:modules/git/.gitconfig][.gitconfig]]
 
+* Programs
+
+Dedicated program depencies. Mostly created specifically to address ROOT depedencies, since it's so pervasive in use.
+
+** TODO ROOT
+
+This section should describe relevant ROOT download sources, and appropriate CMake arguments..
+
+
+** TODO Geant4
+
+This section should describe relevant Geant4 download sources, and appropriate CMake arguments..
+
+NOTE: this should be built and sourced AFTER ROOT
+
 * Setup
 
 For executing org code to do the symlinking for you if you've already got a working emacs!
@@ -43,40 +62,116 @@ Example of linking dotfile's init.el to user src:
 ln -sf "$(pwd)"/modules/emacs/init.el ~/.doom.d/
 #+end_src
 
-** emacs setup
-warning, this will overwrite and force symlinks to *~/.doom.d*..
+- Note: alternative setups exist: [[https://www.youtube.com/watch?v=tBoLDpTWVOM][distroTube and atlassian link]]
 
-#+begin_src shell
-# the files that should be in our doom path
-emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
-doomPath="$HOME""/.doom.d/"
-
+Main linker function.. Expects a set of dot files, and a particular path to send
+the files to. It will create backup files if files already exist and create the
+symlinks anyways..
+#+begin_src shell :session t
+function link_dotfiles() {
+# get the dest and src paths first;
+dstPath="$1"; shift;
+srcPath="$1"; shift;
 # move every file to the backup, and prompt user
-for val in "${emacsFiles[@]}"
+files=("$@")
+for val in "${files[@]}"
 do
     # place where the file should live
-    dst="$doomPath""$val"
+    dst="$dstPath""$val"
     # if it's not a symlink already, move it
     if [[ -L "$dst" ]]; then
-        echo  "$val" ', is already linked!'
+        echo  "$val" ", is already linked.."
     else
-        file="$(pwd)""/modules/emacs/""$val"
+        file="$(pwd)""$srcPath""$val"
         mv "$dst" "$(pwd)""/backup/"
         echo 'backuping up file..'
-        ln -s "$file" "$doomPath"
+        ln -s "$file" "$dstPath"
     fi
 done
+}
 #+end_src
 
 #+RESULTS:
-| init.el     | is already linked! |
-| config.el   | is already linked! |
-| packages.el | is already linked! |
-| custom.el   | is already linked! |
+
+Example usage:
+
+#+begin_src shell
+dotFiles=("ni" "hao" "fren")  # name of files to move to dotFilePath
+dotFilePath="$HOME"           # aboslute file path
+srcFilePath="/modules/emacs/" # path relative to this repo, include final '/'
+link_dotfiles "$dotFilePath" "$srcFilePath" "${dotFiles[@]}"
+#+end_src
+
+#+RESULTS:
+
+
+** Emacs setup
+
+Snippet will test all doom.d files to see if they're already symlinked. If not,
+it will move the files to the backup directory and create symlinks in place.
+
+#+begin_src shell :session t
+# the files that should be in our doom path
+emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
+doomPath="$HOME""/.doom.d/"
+emacsPath="/modules/emacs/"
+# move every file to the backup, and prompt user
+link_dotfiles "$doomPath" "$emacsPath" "${emacsFiles[@]}"
+#+end_src
+
+** Vim setup
+
+Vim setup should be notoriously light weight considering the bulk of
+configuration relies currently on doom-emacs.. Any heavy lifting should be done
+there. That said, sometimes it's nice to have sleek 'pure' vim.
+
+Vim expects your config to be here: ~%userprofile%\vimfiles\~
+
+#+begin_src shell :session t
+# the files that should be in our doom path
+vimFiles=("init.el" "config.el" "packages.el" "custom.el")
+vimPath="$HOME""/.vim/"
+srcPath="/modules/vim/"
+# vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
+if [[ -f "$HOME/.vimrc" ]]; then
+    echo  "vimrc stored in home.. moving to backup.."
+    mv "$HOME/.vimrc" "$(pwd)""/backup/"
+fi
+# move every file to the backup, and prompt user
+link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
+#+end_src
 
 ** pip3
-pip3 installs forming pyenviron base
+
+pip3 installs forming pyenviron base..
+
+#+begin_src shell :results none
+pip3 install numpy matplotlib pytest scipy
+#+end_src
+
 ** sudo apt install
+
 sudo apt install commands from a clean ubuntu machine
+
+- getting ROOT running on wsl:
+#+begin_src shell
+# wsl windows dependencies for ROOT and emacs..
+sudo apt update
+sudo apt upgrade
+sudo apt install python3-pip
+sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
+sudo apt-get install openssl-dev
+sudo apt install unzip
+sudo apt install llvm
+sudo apt-get install clangd-9
+sudo apt-get install -y shellcheck
+sudo apt install glslang-tools
+sudo apt-get install -y markdown
+sudo apt install fdclone
+sudo apt-get install sqlite3 libsqlite3-dev
+sudo apt-get install jq
+sudo apt-get install graphviz
+#+end_src
+
 ** homebrew
 common homebrew commands to get up and running

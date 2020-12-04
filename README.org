@@ -67,6 +67,7 @@ ln -sf "$(pwd)"/modules/emacs/init.el ~/.doom.d/
 Main linker function.. Expects a set of dot files, and a particular path to send
 the files to. It will create backup files if files already exist and create the
 symlinks anyways..
+
 #+begin_src shell :session t
 function link_dotfiles() {
 # get the dest and src paths first;
@@ -133,7 +134,9 @@ vimFiles=("init.el" "config.el" "packages.el" "custom.el")
 vimPath="$HOME""/.vim/"
 srcPath="/modules/vim/"
 # vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
-if [[ -f "$HOME/.vimrc" ]]; then
+if [[ ! -d "$HOME/.vim" ]]; then
+    echo "no default vim directory.."
+elif [[ -f "$HOME/.vimrc" ]]; then
     echo  "vimrc stored in home.. moving to backup.."
     mv "$HOME/.vimrc" "$(pwd)""/backup/"
 fi
@@ -146,6 +149,8 @@ Vim also requires a choice of a bundler.. I use vundle and that is its own git r
 #+BEGIN_SRC shell
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 #+END_SRC
+
+More vundle info: [[https://github.com/VundleVim/Vundle.vim][vundle repo]]
 
 ** pip3
 

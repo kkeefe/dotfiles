@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -o pipefail
 # comming from README.org in dotfiles babel export
 
 function link_dotfiles() {
@@ -24,32 +24,8 @@ do
 done
 }
 
-# the files that should be in our doom path
-emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
-doomPath="$HOME""/.doom.d/"
-emacsPath="/modules/emacs/"
-# move every file to the backup, and prompt user
-link_dotfiles "$doomPath" "$emacsPath" "${emacsFiles[@]}"
-
-# the files that should be in our doom path
-vimFiles=("init.el" "config.el" "packages.el" "custom.el")
-vimPath="$HOME""/.vim/"
-srcPath="/modules/vim/"
-# vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
-if [[ ! -d "$HOME/.vim" ]]; then
-    echo "no default vim directory.."
-elif [[ -f "$HOME/.vimrc" ]]; then
-    echo  "vimrc stored in home.. moving to backup.."
-    mv "$HOME/.vimrc" "$(pwd)""/backup/"
-fi
-# move every file to the backup, and prompt user
-link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
-
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-pip3 install numpy matplotlib pytest scipy
-
 # wsl windows dependencies for ROOT and emacs..
+function sudoUpdates(){
 sudo apt update
 sudo apt upgrade
 sudo apt install python3-pip
@@ -65,3 +41,39 @@ sudo apt install fdclone
 sudo apt-get install sqlite3 libsqlite3-dev
 sudo apt-get install jq
 sudo apt-get install graphviz
+}
+
+## getting homebrew
+function getBrew() {
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+
+pip3 install numpy matplotlib pytest scipy
+
+## Vim config
+# vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
+if [[ ! -d "$HOME/.vim" ]]; then
+    echo "no default vim directory.."
+elif [[ -f "$HOME/.vimrc" ]]; then
+    echo  "vimrc stored in home.. moving to backup.."
+    mv "$HOME/.vimrc" "$(pwd)""/backup/vimrc"
+fi
+# if it's not already there, then clone it down
+if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git "$HOME"/.vim/bundle/Vundle.vim
+fi
+
+# the files that should be in our doom path
+vimFiles=("vimrc" "viminfo") # don't need the dot here
+vimPath="$HOME""/.vim/"
+srcPath="/modules/vim/"
+# move every file to the backup, and prompt user
+link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
+
+## Emacs config
+# the files that should be in our doom path
+emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
+doomPath="$HOME""/.doom.d/"
+emacsPath="/modules/emacs/"
+# move every file to the backup, and prompt user
+link_dotfiles "$doomPath" "$emacsPath" "${emacsFiles[@]}"

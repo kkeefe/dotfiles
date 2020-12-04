@@ -62,7 +62,7 @@ Main linker function.. Expects a set of dot files, and a particular path to send
 the files to. It will create backup files if files already exist and create the
 symlinks anyways..
 
-#+begin_src shell :session t
+#+begin_src shell
 
 function link_dotfiles() {
 # get the dest and src paths first;
@@ -87,6 +87,8 @@ done
 }
 #+end_src
 
+#+RESULTS:
+
 Example usage:
 
 #+begin_src shell :tangle no
@@ -100,7 +102,7 @@ link_dotfiles "$dotFilePath" "$srcFilePath" "${dotFiles[@]}"
 
 sudo apt install commands from a clean ubuntu machine
 
-- getting ROOT running on wsl:
+- derrived from getting ROOT running on wsl:
 #+begin_src shell
 # wsl windows dependencies for ROOT and emacs..
 function sudoUpdates(){
@@ -138,7 +140,7 @@ function getBrew() {
 pip3 installs forming pyenviron base..
 
 #+begin_src shell :results none
-Pip3 install numpy matplotlib pytest scipy
+pip3 install numpy matplotlib pytest scipy
 #+end_src
 
 ** Vim setup
@@ -149,10 +151,21 @@ there. That said, sometimes it's nice to have sleek 'pure' vim.
 
 Vim expects your config to be here: ~%userprofile%\vimfiles\~
 
-#+begin_src shell :session t
+Vim also requires a choice of a bundler.. I use vundle and that is its own git repo, clone it if you don't have it:
+
+#+BEGIN_SRC shell
+# if it's not already there, then clone it down
+if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git "$HOME"/.vim/bundle/Vundle.vim
+fi
+#+END_SRC
+
+More vundle info: [[https://github.com/VundleVim/Vundle.vim][vundle repo]]
+
+#+begin_src shell
 ## Vim config
 # the files that should be in our doom path
-vimFiles=("init.el" "config.el" "packages.el" "custom.el")
+vimFiles=("vimrc" "viminfo")
 vimPath="$HOME""/.vim/"
 srcPath="/modules/vim/"
 # vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
@@ -160,19 +173,15 @@ if [[ ! -d "$HOME/.vim" ]]; then
     echo "no default vim directory.."
 elif [[ -f "$HOME/.vimrc" ]]; then
     echo  "vimrc stored in home.. moving to backup.."
-    mv "$HOME/.vimrc" "$(pwd)""/backup/"
+    mv "$HOME/.vimrc" "$(pwd)""/backup/vimrc"
 fi
 # move every file to the backup, and prompt user
 link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
 #+end_src
 
-Vim also requires a choice of a bundler.. I use vundle and that is its own git repo, clone it if you don't have it:
+#+RESULTS:
 
-#+BEGIN_SRC shell
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-#+END_SRC
 
-More vundle info: [[https://github.com/VundleVim/Vundle.vim][vundle repo]]
 
 ** Emacs setup
 

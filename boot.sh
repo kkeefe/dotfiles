@@ -15,11 +15,13 @@ do
     # if it's not a symlink already, move it
     if [[ -L "$dst" ]]; then
         echo  "$val" ", is already linked.."
-    else
+    elif [[ -f "$dst" ]]; then
         file="$(pwd)""$srcPath""$val"
         mv "$dst" "$(pwd)""/backup/"
-        echo 'backuping up file..'
+        echo 'backuping up file:  '  "$val"
         ln -s "$file" "$dstPath"
+    else
+        echo 'no original source file: ' "$val$"
     fi
 done
 }
@@ -50,7 +52,16 @@ function getBrew() {
 
 pip3 install numpy matplotlib pytest scipy
 
+# if it's not already there, then clone it down
+if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
+    git clone https://github.com/VundleVim/Vundle.vim.git "$HOME"/.vim/bundle/Vundle.vim
+fi
+
 ## Vim config
+# the files that should be in our doom path
+vimFiles=("vimrc" "viminfo")
+vimPath="$HOME""/.vim/"
+srcPath="/modules/vim/"
 # vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
 if [[ ! -d "$HOME/.vim" ]]; then
     echo "no default vim directory.."
@@ -58,15 +69,6 @@ elif [[ -f "$HOME/.vimrc" ]]; then
     echo  "vimrc stored in home.. moving to backup.."
     mv "$HOME/.vimrc" "$(pwd)""/backup/vimrc"
 fi
-# if it's not already there, then clone it down
-if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
-    git clone https://github.com/VundleVim/Vundle.vim.git "$HOME"/.vim/bundle/Vundle.vim
-fi
-
-# the files that should be in our doom path
-vimFiles=("vimrc" "viminfo") # don't need the dot here
-vimPath="$HOME""/.vim/"
-srcPath="/modules/vim/"
 # move every file to the backup, and prompt user
 link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
 

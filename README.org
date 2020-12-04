@@ -24,11 +24,14 @@ List and desciption of source dot files and where they should go..
 ** git
 using .gitconfig, global settings for username and email
 - [[file:modules/git/.gitconfig][.gitconfig]]
+- [[file:modules/git/.git_ignore_global_template][.git_ignore_global_template]]
 
 ** shell
 using .zshrc, .bashrc, and .bash_profile
 - [[file:modules/shell/.bashrc][.bashrc]]
 - [[file:modules/shell/.bash_profile][.bash_profile]]
+- [[file:modules/shell/.zprofile][.zprofile]]
+- [[file:modules/shell/.zshrc][.zshrc]]
 
 ** vim
 using .vimrc mostly to start
@@ -54,7 +57,7 @@ ln -sf "$(pwd)"/modules/emacs/init.el ~/.doom.d/
 
 #+BEGIN_SRC shell
 #!/usr/bin/env bash
-set -euo pipefail
+set -o pipefail
 # comming from README.org in dotfiles babel export
 #+END_SRC
 
@@ -77,11 +80,13 @@ do
     # if it's not a symlink already, move it
     if [[ -L "$dst" ]]; then
         echo  "$val" ", is already linked.."
-    else
+    elif [[ -f "$dst" ]]; then
         file="$(pwd)""$srcPath""$val"
         mv "$dst" "$(pwd)""/backup/"
-        echo 'backuping up file..'
+        echo 'backuping up file: '  "$val"
         ln -s "$file" "$dstPath"
+    else
+        echo 'no original source file: ' "$val"
     fi
 done
 }
@@ -126,12 +131,23 @@ sudo apt-get install graphviz
 #+end_src
 
 ** homebrew
+
 common homebrew commands to get up and running
 
 #+begin_src shell
 ## getting homebrew
 function getBrew() {
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+function makeBrew() {
+    brew cask install iterm2
+    brew install zsh
+    brew install emacs
+    brew install root
+}
+function getOhMyZsh() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    upgrade_oh_my_zsh
 }
 #+end_src
 
@@ -178,9 +194,6 @@ fi
 # move every file to the backup, and prompt user
 link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
 #+end_src
-
-#+RESULTS:
-
 
 
 ** Emacs setup

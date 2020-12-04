@@ -1,0 +1,23 @@
+#+TITLE: Readme
+
+* :toc:
+- [[#modules][Modules]]
+  - [[#emacs][emacs]]
+  - [[#vim][vim]]
+  - [[#shell][shell]]
+- [[#setup][Setup]]
+
+* Modules
+list of source dot files and where they should go
+** emacs
+using .doom.d and symlinks here
+** vim
+using .vimrc mostly to start
+** shell
+using .zshrc for now
+* Setup
+For executing org code to do the symlinking for you if you've already got a working emacs!
+
+#+begin_src shell
+
+#+end_src

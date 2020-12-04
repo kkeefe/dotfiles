@@ -1,3 +1,6 @@
+:PROPERTIES:
+:header-args: :tangle boot.sh :results output
+:END:
 #+TITLE: Readme
 
 * :toc:
@@ -6,18 +9,18 @@
   - [[#vim][vim]]
   - [[#shell][shell]]
   - [[#git][git]]
-- [[#programs][Programs]]
-  - [[#root][ROOT]]
-  - [[#geant4][Geant4]]
 - [[#setup][Setup]]
   - [[#emacs-setup][Emacs setup]]
   - [[#vim-setup][Vim setup]]
-  - [[#pip3][pip3]]
   - [[#sudo-apt-install][sudo apt install]]
   - [[#homebrew][homebrew]]
+  - [[#pip3][pip3]]
+- [[#programs][Programs]]
+  - [[#root][ROOT]]
+  - [[#geant4][Geant4]]
 
 * Modules
-list of source dot files and where they should go
+List and desciption of source dot files and where they should go..
 ** emacs
 using .doom.d and symlinks here
 - [[file:modules/emacs/config.el][config.el]]
@@ -38,37 +41,29 @@ using .zshrc, .bashrc, and .bash_profile
 using .gitconfig, global settings for username and email
 - [[file:modules/git/.gitconfig][.gitconfig]]
 
-* Programs
-
-Dedicated program depencies. Mostly created specifically to address ROOT depedencies, since it's so pervasive in use.
-
-** TODO ROOT
-
-This section should describe relevant ROOT download sources, and appropriate CMake arguments..
-
-
-** TODO Geant4
-
-This section should describe relevant Geant4 download sources, and appropriate CMake arguments..
-
-NOTE: this should be built and sourced AFTER ROOT
-
 * Setup
 
 For executing org code to do the symlinking for you if you've already got a working emacs!
 
 Example of linking dotfile's init.el to user src:
-#+begin_src shell
+#+begin_src shell :tangle no
 ln -sf "$(pwd)"/modules/emacs/init.el ~/.doom.d/
 #+end_src
 
 - Note: alternative setups exist: [[https://www.youtube.com/watch?v=tBoLDpTWVOM][distroTube and atlassian link]]
+
+#+BEGIN_SRC shell
+#!/usr/bin/env bash
+set -euo pipefail
+# comming from README.org in dotfiles babel export
+#+END_SRC
 
 Main linker function.. Expects a set of dot files, and a particular path to send
 the files to. It will create backup files if files already exist and create the
 symlinks anyways..
 
 #+begin_src shell :session t
+
 function link_dotfiles() {
 # get the dest and src paths first;
 dstPath="$1"; shift;
@@ -92,19 +87,14 @@ done
 }
 #+end_src
 
-#+RESULTS:
-
 Example usage:
 
-#+begin_src shell
+#+begin_src shell :tangle no
 dotFiles=("ni" "hao" "fren")  # name of files to move to dotFilePath
 dotFilePath="$HOME"           # aboslute file path
 srcFilePath="/modules/emacs/" # path relative to this repo, include final '/'
 link_dotfiles "$dotFilePath" "$srcFilePath" "${dotFiles[@]}"
 #+end_src
-
-#+RESULTS:
-
 
 ** Emacs setup
 
@@ -112,6 +102,7 @@ Snippet will test all doom.d files to see if they're already symlinked. If not,
 it will move the files to the backup directory and create symlinks in place.
 
 #+begin_src shell :session t
+## Emacs config
 # the files that should be in our doom path
 emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
 doomPath="$HOME""/.doom.d/"
@@ -129,6 +120,7 @@ there. That said, sometimes it's nice to have sleek 'pure' vim.
 Vim expects your config to be here: ~%userprofile%\vimfiles\~
 
 #+begin_src shell :session t
+## Vim config
 # the files that should be in our doom path
 vimFiles=("init.el" "config.el" "packages.el" "custom.el")
 vimPath="$HOME""/.vim/"
@@ -151,14 +143,6 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 #+END_SRC
 
 More vundle info: [[https://github.com/VundleVim/Vundle.vim][vundle repo]]
-
-** pip3
-
-pip3 installs forming pyenviron base..
-
-#+begin_src shell :results none
-pip3 install numpy matplotlib pytest scipy
-#+end_src
 
 ** sudo apt install
 
@@ -186,3 +170,24 @@ sudo apt-get install graphviz
 
 ** homebrew
 common homebrew commands to get up and running
+** pip3
+
+pip3 installs forming pyenviron base..
+
+#+begin_src shell :results none
+pip3 install numpy matplotlib pytest scipy
+#+end_src
+* Programs
+
+Dedicated program depencies. Mostly created specifically to address ROOT depedencies, since it's so pervasive in use.
+
+** TODO ROOT
+
+This section should describe relevant ROOT download sources, and appropriate CMake arguments..
+
+
+** TODO Geant4
+
+This section should describe relevant Geant4 download sources, and appropriate CMake arguments..
+
+NOTE: this should be built and sourced AFTER ROOT

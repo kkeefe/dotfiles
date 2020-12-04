@@ -1,26 +1,39 @@
 :PROPERTIES:
-:header-args: :tangle boot.sh :results output
+:header-args: :tangle boot.sh :results output :session t
 :END:
 #+TITLE: Readme
 
 * :toc:
 - [[#modules][Modules]]
-  - [[#emacs][emacs]]
-  - [[#vim][vim]]
-  - [[#shell][shell]]
   - [[#git][git]]
+  - [[#shell][shell]]
+  - [[#vim][vim]]
+  - [[#emacs][emacs]]
 - [[#setup][Setup]]
-  - [[#emacs-setup][Emacs setup]]
-  - [[#vim-setup][Vim setup]]
   - [[#sudo-apt-install][sudo apt install]]
   - [[#homebrew][homebrew]]
   - [[#pip3][pip3]]
+  - [[#vim-setup][Vim setup]]
+  - [[#emacs-setup][Emacs setup]]
 - [[#programs][Programs]]
   - [[#root][ROOT]]
   - [[#geant4][Geant4]]
 
 * Modules
 List and desciption of source dot files and where they should go..
+** git
+using .gitconfig, global settings for username and email
+- [[file:modules/git/.gitconfig][.gitconfig]]
+
+** shell
+using .zshrc, .bashrc, and .bash_profile
+- [[file:modules/shell/.bashrc][.bashrc]]
+- [[file:modules/shell/.bash_profile][.bash_profile]]
+
+** vim
+using .vimrc mostly to start
+- [[file:modules/vim/.vimrc][.vimrc]]
+
 ** emacs
 using .doom.d and symlinks here
 - [[file:modules/emacs/config.el][config.el]]
@@ -28,19 +41,6 @@ using .doom.d and symlinks here
 - [[file:modules/emacs/packages.el][packages.el]]
 - [[file:modules/emacs/custom.el][custom.el]]
   
-** vim
-using .vimrc mostly to start
-- [[file:modules/vim/.vimrc][.vimrc]]
-
-** shell
-using .zshrc, .bashrc, and .bash_profile
-- [[file:modules/shell/.bashrc][.bashrc]]
-- [[file:modules/shell/.bash_profile][.bash_profile]]
-
-** git
-using .gitconfig, global settings for username and email
-- [[file:modules/git/.gitconfig][.gitconfig]]
-
 * Setup
 
 For executing org code to do the symlinking for you if you've already got a working emacs!
@@ -96,19 +96,49 @@ srcFilePath="/modules/emacs/" # path relative to this repo, include final '/'
 link_dotfiles "$dotFilePath" "$srcFilePath" "${dotFiles[@]}"
 #+end_src
 
-** Emacs setup
+** sudo apt install
 
-Snippet will test all doom.d files to see if they're already symlinked. If not,
-it will move the files to the backup directory and create symlinks in place.
+sudo apt install commands from a clean ubuntu machine
 
-#+begin_src shell :session t
-## Emacs config
-# the files that should be in our doom path
-emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
-doomPath="$HOME""/.doom.d/"
-emacsPath="/modules/emacs/"
-# move every file to the backup, and prompt user
-link_dotfiles "$doomPath" "$emacsPath" "${emacsFiles[@]}"
+- getting ROOT running on wsl:
+#+begin_src shell
+# wsl windows dependencies for ROOT and emacs..
+function sudoUpdates(){
+sudo apt update
+sudo apt upgrade
+sudo apt install python3-pip
+sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
+sudo apt-get install openssl-dev
+sudo apt install unzip
+sudo apt install llvm
+sudo apt-get install clangd-9
+sudo apt-get install -y shellcheck
+sudo apt install glslang-tools
+sudo apt-get install -y markdown
+sudo apt install fdclone
+sudo apt-get install sqlite3 libsqlite3-dev
+sudo apt-get install jq
+sudo apt-get install graphviz
+}
+
+#+end_src
+
+** homebrew
+common homebrew commands to get up and running
+
+#+begin_src shell
+## getting homebrew
+function getBrew() {
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+}
+#+end_src
+
+** pip3
+
+pip3 installs forming pyenviron base..
+
+#+begin_src shell :results none
+Pip3 install numpy matplotlib pytest scipy
 #+end_src
 
 ** Vim setup
@@ -144,39 +174,22 @@ git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 More vundle info: [[https://github.com/VundleVim/Vundle.vim][vundle repo]]
 
-** sudo apt install
+** Emacs setup
 
-sudo apt install commands from a clean ubuntu machine
+Snippet will test all doom.d files to see if they're already symlinked. If not,
+it will move the files to the backup directory and create symlinks in place.
 
-- getting ROOT running on wsl:
-#+begin_src shell
-# wsl windows dependencies for ROOT and emacs..
-sudo apt update
-sudo apt upgrade
-sudo apt install python3-pip
-sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
-sudo apt-get install openssl-dev
-sudo apt install unzip
-sudo apt install llvm
-sudo apt-get install clangd-9
-sudo apt-get install -y shellcheck
-sudo apt install glslang-tools
-sudo apt-get install -y markdown
-sudo apt install fdclone
-sudo apt-get install sqlite3 libsqlite3-dev
-sudo apt-get install jq
-sudo apt-get install graphviz
+#+begin_src shell :session t
+## Emacs config
+# the files that should be in our doom path
+emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
+doomPath="$HOME""/.doom.d/"
+emacsPath="/modules/emacs/"
+# move every file to the backup, and prompt user
+link_dotfiles "$doomPath" "$emacsPath" "${emacsFiles[@]}"
 #+end_src
 
-** homebrew
-common homebrew commands to get up and running
-** pip3
 
-pip3 installs forming pyenviron base..
-
-#+begin_src shell :results none
-pip3 install numpy matplotlib pytest scipy
-#+end_src
 * Programs
 
 Dedicated program depencies. Mostly created specifically to address ROOT depedencies, since it's so pervasive in use.

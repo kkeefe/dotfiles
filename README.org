@@ -141,6 +141,12 @@ fi
 link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
 #+end_src
 
+Vim also requires a choice of a bundler.. I use vundle and that is its own git repo, clone it if you don't have it:
+
+#+BEGIN_SRC shell
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+#+END_SRC
+
 ** pip3
 
 pip3 installs forming pyenviron base..

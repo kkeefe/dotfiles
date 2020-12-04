@@ -1,0 +1,7 @@
+.DS_Store
+.idea
+*.log
+tmp/
+
+# ignore things randomly dumped into the backup dir
+backup/*

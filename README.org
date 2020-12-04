@@ -5,19 +5,78 @@
   - [[#emacs][emacs]]
   - [[#vim][vim]]
   - [[#shell][shell]]
+  - [[#git][git]]
 - [[#setup][Setup]]
+  - [[#emacs-setup][emacs setup]]
+  - [[#pip3][pip3]]
+  - [[#sudo-apt-install][sudo apt install]]
+  - [[#homebrew][homebrew]]
 
 * Modules
 list of source dot files and where they should go
 ** emacs
 using .doom.d and symlinks here
+- [[file:modules/emacs/config.el][config.el]]
+- [[file:modules/emacs/init.el][init.el]]
+- [[file:modules/emacs/packages.el][packages.el]]
+- [[file:modules/emacs/custom.el][custom.el]]
+  
 ** vim
 using .vimrc mostly to start
+- [[file:modules/vim/.vimrc][.vimrc]]
+
 ** shell
-using .zshrc for now
+using .zshrc, .bashrc, and .bash_profile
+- [[file:modules/shell/.bashrc][.bashrc]]
+- [[file:modules/shell/.bash_profile][.bash_profile]]
+
+** git
+using .gitconfig, global settings for username and email
+- [[file:modules/git/.gitconfig][.gitconfig]]
+
 * Setup
+
 For executing org code to do the symlinking for you if you've already got a working emacs!
 
+Example of linking dotfile's init.el to user src:
 #+begin_src shell
-
+ln -sf "$(pwd)"/modules/emacs/init.el ~/.doom.d/
 #+end_src
+
+** emacs setup
+warning, this will overwrite and force symlinks to *~/.doom.d*..
+
+#+begin_src shell
+# the files that should be in our doom path
+emacsFiles=("init.el" "config.el" "packages.el" "custom.el")
+doomPath="$HOME""/.doom.d/"
+
+# move every file to the backup, and prompt user
+for val in "${emacsFiles[@]}"
+do
+    # place where the file should live
+    dst="$doomPath""$val"
+    # if it's not a symlink already, move it
+    if [[ -L "$dst" ]]; then
+        echo  "$val" ', is already linked!'
+    else
+        file="$(pwd)""/modules/emacs/""$val"
+        mv "$dst" "$(pwd)""/backup/"
+        echo 'backuping up file..'
+        ln -s "$file" "$doomPath"
+    fi
+done
+#+end_src
+
+#+RESULTS:
+| init.el     | is already linked! |
+| config.el   | is already linked! |
+| packages.el | is already linked! |
+| custom.el   | is already linked! |
+
+** pip3
+pip3 installs forming pyenviron base
+** sudo apt install
+sudo apt install commands from a clean ubuntu machine
+** homebrew
+common homebrew commands to get up and running

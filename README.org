@@ -36,8 +36,8 @@ using .zshrc, .bashrc, and .bash_profile
 - [[file:modules/shell/.zshrc][.zshrc]]
 
 ** vim
-using .vimrc mostly to start
-- [[file:modules/vim/.vimrc][.vimrc]]
+using vimrc mostly to start.. note that vimrc is not prefixed with '.' if placed in .vim dir
+- [[file:modules/vim/.vimrc][vimrc]]
 
 ** emacs
 using .doom.d and symlinks here
@@ -199,6 +199,7 @@ else
 fi
 # move every file to the backup, and prompt user
 link_dotfiles "$shellPath/" "$srcPath" "${shellFiles[@]}"
+link_dotfiles "$shellPath/" "/modules/git/" ".gitconfig" ".gitignore_global"
 #+end_src
 
 ** Vim setup

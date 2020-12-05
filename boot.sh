@@ -97,6 +97,7 @@ else
 fi
 # move every file to the backup, and prompt user
 link_dotfiles "$shellPath/" "$srcPath" "${shellFiles[@]}"
+link_dotfiles "$shellPath/" "/modules/git/" ".gitconfig" ".gitignore_global"
 
 # if it's not already there, then clone it down
 if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then

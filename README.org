@@ -109,25 +109,28 @@ sudo apt install commands from a clean ubuntu machine
 
 - derrived from getting ROOT running on wsl:
 #+begin_src shell
-# wsl windows dependencies for ROOT and emacs..
+## wsl windows dependencies for ROOT and emacs..
 function sudoUpdates(){
-sudo apt update
-sudo apt upgrade
-sudo apt install python3-pip
-sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
-sudo apt-get install openssl-dev
-sudo apt install unzip
-sudo apt install llvm
-sudo apt-get install clangd-9
-sudo apt-get install -y shellcheck
-sudo apt install glslang-tools
-sudo apt-get install -y markdown
-sudo apt install fdclone
-sudo apt-get install sqlite3 libsqlite3-dev
-sudo apt-get install jq
-sudo apt-get install graphviz
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install python3-pip
+    # required dependencies
+    sudo apt-get install git ripgrep
+    # optional dependencies
+    sudo apt-get install fd-find
+    sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
+    sudo apt-get install openssl-dev
+    sudo apt install unzip
+    sudo apt install llvm
+    sudo apt-get install clangd-9
+    sudo apt-get install -y shellcheck
+    sudo apt install glslang-tools
+    sudo apt-get install -y markdown
+    sudo apt install fdclone
+    sudo apt-get install sqlite3 libsqlite3-dev
+    sudo apt-get install jq
+    sudo apt-get install graphviz
 }
-
 #+end_src
 
 ** homebrew
@@ -137,12 +140,27 @@ common homebrew commands to get up and running
 #+begin_src shell
 ## getting homebrew
 function getBrew() {
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 }
 function makeBrew() {
-    brew cask install iterm2
     brew install zsh
-    brew install emacs
+    brew install git
+    brew install ripgrep
+    brew install coreutils
+    brew install fd
+    brew install python3
+    brew install llvm
+    brew cask install iterm2
+    brew install glslang
+    brew install jq
+    brew install qt5
+    brew install tmux
+    brew install xerxes-c
+    # emacs based on doom config
+    brew tap d12frosted/emacs-plus
+    brew install emacs-plus
+    ln -s /usr/local/opt/emacs-plus/Emacs.app /Applications/Emacs.app
+    # root last
     brew install root
 }
 function getOhMyZsh() {
@@ -156,7 +174,7 @@ function getOhMyZsh() {
 pip3 installs forming pyenviron base..
 
 #+begin_src shell :results none
-pip3 install numpy matplotlib pytest scipy
+pip3 install numpy matplotlib pytest scipy isort pipenv nose pandas tensorflow
 #+end_src
 
 ** Vim setup
@@ -197,6 +215,15 @@ link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
 
 
 ** Emacs setup
+
+If there isn't even doom on your system, then here you go:
+
+#+begin_src shell
+function getDoom(){
+    git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+    ~/.emacs.d/bin/doom install
+}
+#+end_src
 
 Snippet will test all doom.d files to see if they're already symlinked. If not,
 it will move the files to the backup directory and create symlinks in place.

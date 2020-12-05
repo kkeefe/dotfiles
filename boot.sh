@@ -18,39 +18,68 @@ do
     elif [[ -f "$dst" ]]; then
         file="$(pwd)""$srcPath""$val"
         mv "$dst" "$(pwd)""/backup/"
-        echo 'backuping up file:  '  "$val"
+        echo 'backuping up file: '  "$val"
         ln -s "$file" "$dstPath"
     else
-        echo 'no original source file: ' "$val$"
+        echo 'no original source file: ' "$val"
     fi
 done
 }
 
-# wsl windows dependencies for ROOT and emacs..
+## wsl windows dependencies for ROOT and emacs..
 function sudoUpdates(){
-sudo apt update
-sudo apt upgrade
-sudo apt install python3-pip
-sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
-sudo apt-get install openssl-dev
-sudo apt install unzip
-sudo apt install llvm
-sudo apt-get install clangd-9
-sudo apt-get install -y shellcheck
-sudo apt install glslang-tools
-sudo apt-get install -y markdown
-sudo apt install fdclone
-sudo apt-get install sqlite3 libsqlite3-dev
-sudo apt-get install jq
-sudo apt-get install graphviz
+    sudo apt update
+    sudo apt upgrade
+    sudo apt install python3-pip
+    # required dependencies
+    sudo apt-get install git ripgrep
+    # optional dependencies
+    sudo apt-get install fd-find
+    sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
+    sudo apt-get install openssl-dev
+    sudo apt install unzip
+    sudo apt install llvm
+    sudo apt-get install clangd-9
+    sudo apt-get install -y shellcheck
+    sudo apt install glslang-tools
+    sudo apt-get install -y markdown
+    sudo apt install fdclone
+    sudo apt-get install sqlite3 libsqlite3-dev
+    sudo apt-get install jq
+    sudo apt-get install graphviz
 }
 
 ## getting homebrew
 function getBrew() {
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+}
+function makeBrew() {
+    brew install zsh
+    brew install git
+    brew install ripgrep
+    brew install coreutils
+    brew install fd
+    brew install python3
+    brew install llvm
+    brew cask install iterm2
+    brew install glslang
+    brew install jq
+    brew install qt5
+    brew install tmux
+    brew install xerxes-c
+    # emacs based on doom config
+    brew tap d12frosted/emacs-plus
+    brew install emacs-plus
+    ln -s /usr/local/opt/emacs-plus/Emacs.app /Applications/Emacs.app
+    # root last
+    brew install root
+}
+function getOhMyZsh() {
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    upgrade_oh_my_zsh
 }
 
-pip3 install numpy matplotlib pytest scipy
+pip3 install numpy matplotlib pytest scipy isort pipenv nose pandas tensorflow
 
 # if it's not already there, then clone it down
 if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
@@ -71,6 +100,11 @@ elif [[ -f "$HOME/.vimrc" ]]; then
 fi
 # move every file to the backup, and prompt user
 link_dotfiles "$vimPath" "$srcPath" "${vimFiles[@]}"
+
+function getDoom(){
+    git clone --depth 1 https://github.com/hlissner/doom-emacs ~/.emacs.d
+    ~/.emacs.d/bin/doom install
+}
 
 ## Emacs config
 # the files that should be in our doom path

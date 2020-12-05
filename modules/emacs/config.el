@@ -18,18 +18,13 @@
 ;;
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
-(setq doom-font (font-spec :family "Monaco" :size 16 ))
+(setq doom-font (font-spec :family "monospace" :size 16 ))
       ;; doom-variable-pitch-font (font-spec :family "Courier" :size 13))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-dracula)
-
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
-;; local setqs
-(setq default-directory "~/")
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -54,7 +49,6 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-;;
 
 ;;; LSP things
 ;; eglot isn't as agood as forcing to use specific lsp and lsp mode only, tbh
@@ -98,7 +92,8 @@
 
 ;; Switch to the new window after splitting
 (setq evil-split-window-below t
-      evil-vsplit-window-right t)
+      evil-vsplit-window-right t
+      default-directory "~/")
 
 ;; additional personal things:
 ;; ;; org keybinds to set
@@ -164,7 +159,6 @@
 
 ;; we don't want this stupid checker
 ;; (setq flycheck-disabled-checkers '(python-pylint))
-
 (setq +python-ipython-repl-args '("-i" "--simple-prompt" "--no-color-info"))
 (setq +python-jupyter-repl-args '("--simple-prompt"))
 
@@ -222,5 +216,4 @@
 ;;     (smtpmail-smtp-user     . "keefekevin91@gmail.com")
 ;;     (mu4e-compose-signature . "---\nKevin Keefe"))
 ;;   t)
-
 ;;;

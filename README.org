@@ -180,10 +180,12 @@ pip3 installs forming pyenviron base..
 #+begin_src shell :results none
 pip3 install numpy matplotlib pytest scipy isort pipenv nose pandas tensorflow
 #+end_src
+
 ** shell setup
 here we copy the zshrc and bashrc files that we need based on the system we're running on..
 
 #+begin_src shell
+shellFiles=(".bashrc" ".bash_profile")
 shellPath="$HOME" # shell files are directly at home..
 srcPath="/modules/shell/"
 # expect either zsh, or bashrc.. prefer zsh..
@@ -192,10 +194,11 @@ if [[ -f "$HOME/.zshrc" ]]; then
     shellFiles=(".zshrc" ".zprofile")
 elif [[ -f "$HOME/.bashrc" ]]; then
     echo  "bashrc stored in home.. configuring bash.."
-    shellFiles=(".bashrc" ".bash_profile")
+else
+    echo "no bash or zsh found.. linking bash for safety"
 fi
 # move every file to the backup, and prompt user
-link_dotfiles "$shellPath" "$srcPath" "${shellFiles[@]}"
+link_dotfiles "$shellPath/" "$srcPath" "${shellFiles[@]}"
 #+end_src
 
 ** Vim setup
@@ -257,7 +260,17 @@ link_dotfiles "$doomPath" "$emacsPath" "${emacsFiles[@]}"
 #+end_src
 
 ** Project setup
-direnv, projectile, cmake, and emacs variables beg the need of a separate and related project related dotfile structure..
+
+direnv, projectile, cmake, and emacs variables beg the need of a separate and
+related project related dotfile structure..
+
+Realisitically, projects should manage their own dotfiles, but this should
+provide a template for modifying or creating new variables.
+
+- direnv [[https://www.willandskill.se/en/install-direnv-on-ubuntu-18-04-in-1-min/][dirEnv on ubuntu]]
+- projectile
+- cmake
+- dir-locals.el
 
 * Programs
 

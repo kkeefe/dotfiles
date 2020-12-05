@@ -36,6 +36,8 @@ function sudoUpdates(){
     sudo apt-get install git ripgrep
     # optional dependencies
     sudo apt-get install fd-find
+    sudo apt-get install direnv
+    sudo apt-get install spell
     sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev python openssl-dev
     sudo apt-get install openssl-dev
     sudo apt install unzip
@@ -43,7 +45,6 @@ function sudoUpdates(){
     sudo apt-get install clangd-9
     sudo apt-get install -y shellcheck
     sudo apt install glslang-tools
-    sudo apt-get install -y markdown
     sudo apt install fdclone
     sudo apt-get install sqlite3 libsqlite3-dev
     sudo apt-get install jq
@@ -82,12 +83,27 @@ function getOhMyZsh() {
 
 pip3 install numpy matplotlib pytest scipy isort pipenv nose pandas tensorflow
 
+shellFiles=(".bashrc" ".bash_profile")
+shellPath="$HOME" # shell files are directly at home..
+srcPath="/modules/shell/"
+# expect either zsh, or bashrc.. prefer zsh..
+if [[ -f "$HOME/.zshrc" ]]; then
+    echo  "zshrc stored in home.. configuring zsh.."
+    shellFiles=(".zshrc" ".zprofile")
+elif [[ -f "$HOME/.bashrc" ]]; then
+    echo  "bashrc stored in home.. configuring bash.."
+else
+    echo "no bash or zsh found.. linking bash for safety"
+fi
+# move every file to the backup, and prompt user
+link_dotfiles "$shellPath/" "$srcPath" "${shellFiles[@]}"
+
 # if it's not already there, then clone it down
 if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
     git clone https://github.com/VundleVim/Vundle.vim.git "$HOME"/.vim/bundle/Vundle.vim
 fi
 
-## Vim config
+## Vim conf ig
 # the files that should be in our doom path
 vimFiles=("vimrc" "viminfo")
 vimPath="$HOME""/.vim/"

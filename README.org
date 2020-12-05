@@ -77,16 +77,17 @@ for val in "${files[@]}"
 do
     # place where the file should live
     dst="$dstPath""$val"
+    file="$(pwd)""$srcPath""$val"
     # if it's not a symlink already, move it
     if [[ -L "$dst" ]]; then
         echo  "$val" ", is already linked.."
     elif [[ -f "$dst" ]]; then
-        file="$(pwd)""$srcPath""$val"
         mv "$dst" "$(pwd)""/backup/"
         echo 'backuping up file: '  "$val"
         ln -s "$file" "$dstPath"
     else
         echo 'no original source file: ' "$val"
+        ln -s "$file" "$dstPath"
     fi
 done
 }
@@ -203,9 +204,7 @@ vimFiles=("vimrc" "viminfo")
 vimPath="$HOME""/.vim/"
 srcPath="/modules/vim/"
 # vim might not have a .vim directory in $HOME at this point, and may use a 'naked' .vimrc, let's fix that here:
-if [[ ! -d "$HOME/.vim" ]]; then
-    echo "no default vim directory.."
-elif [[ -f "$HOME/.vimrc" ]]; then
+if [[ -f "$HOME/.vimrc" ]]; then
     echo  "vimrc stored in home.. moving to backup.."
     mv "$HOME/.vimrc" "$(pwd)""/backup/vimrc"
 fi

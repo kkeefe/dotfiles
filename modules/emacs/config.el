@@ -20,7 +20,8 @@
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Kevin Keefe"
-      user-mail-address "kevinpk@hawaii.edu")
+      user-mail-address "kevinpk@hawaii.edu"
+      doom-theme 'doom-dracula)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
@@ -35,9 +36,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-font (font-spec :family "monospace" :size 16)
-      doom-variable-pitch-font (font-spec :family "Courier" :size 13)
-      doom-theme 'doom-dracula)
+(setq doom-font (font-spec :family "monospace" :size 14 :weight 'semi-light)
+      doom-variable-pitch-font (font-spec :family "sans" :size 13))
 
 ;;; keybindings
 ;; set this because i'm tired of accidentally reverting..

@@ -59,28 +59,22 @@
 (after! org
   (setq org-directory "~/org/"
         org-list-allow-alphabetical t
-        org-default-notes-file (concat org-directory "/notes.org")
-        org-agenda-files '("~/play/README.org"
-                           "~/org/work_done.org"
-                           "~/org/current_bugs.org"
-                           "~/org/org_notes.org"
+        org-default-notes-file (concat org-directory "notes.org")
+        org-archive-location (concat org-directory "archive.org::* From %s")
+        org-agenda-files '("~/org/README.org"
                            "~/org/todo.org"
                            "~/org/journal.org"
-                           "~/org/gcal.org"))
+                           "~/org/gcal.org")
         ;; list of custom org templates
         org-capture-templates
-        '(("w" "work" entry (file+headline "~/org/work_done.org" "Work_Tasks")
-          "* TODO %?\n:Description:\n %^t \n %i \n")
-          ("s" "self-stuff" entry (file+headline "~/org/work_done.org" "Self_Tasks")
-          "* TODO %?\n:Description:\n %^t \n %i \n")
-          ("v" "quick work" entry (file+headline "~/org/work_done.org" "Quick_Tasks")
-          "* TODO %?\n:Description:\n %^t \n %i \n")
-          ("c" "creative" entry (file+headline "~/org/work_done.org" "Creative_Work")
-          "* TODO %?\n:Description:\n%^t \n %i \n")
-          ("p" "code problems" entry (file+headline "~/org/current_bugs.org" "Current Bugs")
-          "* TODO %?\n:Description:\n%^T\n%i %a\n" :prepend t)
-          ("b" "breakthroughs" entry (file+headline "~/org/current_bugs.org" "Breakthroughs!")
-          "* DONE %?\n:Description:\n%^T\n%i %a\n"))
+        '(("w" "work" entry (file+headline "~/org/todo.org" "Work Tasks")
+          "* TODO %?\n:Description:\n %^t \n %i \n" :prepend t)
+          ("p" "code problems" entry (file+headline "~/org/todo.org" "Current Bugs")
+          "* TODO %?\n:Description:\n \n%i %a\n" :prepend t)
+          ("s" "self-stuff" entry (file+headline "~/org/todo.org" "Self Tasks")
+          "* TODO %?\n:Description:\n \n %i \n" :prepend t)
+          ("b" "breakthroughs" entry (file+headline "~/org/todo.org" "Breakthroughs!")
+          "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 ;; things for google calendar syncing..
 ;; (setq org-gcal-client-id "961006309840-31rc93jb94bqvf0oj3s0bb4qbq86aes0.apps.googleusercontent.com"

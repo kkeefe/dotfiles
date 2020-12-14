@@ -12,10 +12,10 @@
 (package! dap-mode)
 
 ;; todoist
-(package! todoist)
+;; (package! todoist)
 
 ;; vhdl tool because we want syntax highlighting at least for out vhdl stuff
-(package! vhdl-tools)
+;; (package! vhdl-tools)
 
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:

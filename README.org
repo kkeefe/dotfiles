@@ -22,9 +22,9 @@
   - [[#geant4][Geant4]]
 
 * Modules
-List and desciption of source dot files and where they should go..
+List and description of source dot files and where they should go..
 ** git
-using .gitconfig, global settings for username and email
+using .gitconfig, gloal settings for username and email
 - [[file:modules/git/.gitconfig][.gitconfig]]
 - [[file:modules/git/.git_ignore_global_template][.git_ignore_global_template]]
 
@@ -110,7 +110,7 @@ link_dotfiles "$dotFilePath" "$srcFilePath" "${dotFiles[@]}"
 
 sudo apt install commands from a clean ubuntu machine
 
-- derrived from getting ROOT running on wsl:
+- derived from getting ROOT running on wsl:
 #+begin_src shell
 ## wsl windows dependencies for ROOT and emacs..
 function sudoUpdates(){
@@ -134,6 +134,7 @@ function sudoUpdates(){
     sudo apt-get install sqlite3 libsqlite3-dev
     sudo apt-get install jq
     sudo apt-get install graphviz
+    sudo apt install fonts-firacode
 }
 #+end_src
 

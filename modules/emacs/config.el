@@ -23,21 +23,9 @@
       user-mail-address "kevinpk@hawaii.edu"
       doom-theme 'doom-dracula)
 
-;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
-;; are the three important ones:
-;;
-;; + `doom-font'
-;; + `doom-variable-pitch-font'
-;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
-;;   presentations or streaming.
-;;
-;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
-;; font string. You generally only need these two:
-;; There are two ways to load a theme. Both assume the theme is installed and
-;; available. You can either set `doom-theme' or manually load a theme with the
-;; `load-theme' function. This is the default:
-(setq doom-font (font-spec :family "monospace" :size 14 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;;; fonts
+;; (setq doom-font (font-spec :family "Fira Code" :size 16 :weight 'semi-light)
+;;       doom-variable-pitch-font (font-spec :family "monospace" :size 14))
 
 ;;; keybindings
 ;; set this because i'm tired of accidentally reverting..
@@ -45,6 +33,7 @@
 (map! "C-c a" 'org-agenda)
 (map! "C-c l" 'org-store-link)
 (map! "C-c f" 'org-footnote-action)
+(map! "C-c r" 'org-roam-capture)
 (map! :leader
       (:prefix "q"
         :n "l" #'evil-window-right
@@ -76,7 +65,7 @@
           ("b" "breakthroughs" entry (file+headline "~/org/todo.org" "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
-;; things for google calendar syncing..
+;;; things for google calendar syncing..
 ;; (setq org-gcal-client-id "961006309840-31rc93jb94bqvf0oj3s0bb4qbq86aes0.apps.googleusercontent.com"
 ;;       org-gcal-client-secret "qC8jc8BBJEPFtTs8mvJEm9RX"
 ;;       org-gcal-file-alist '(("keefekevin91@gmail.com" .  "~/org/gcal.org")))
@@ -122,8 +111,8 @@
 
 ;;; python configurations
 ;; check to see if python finally figured it out with this one..
-;; (setq python-shell-interpreter "python3"
-;;       flycheck-python-pycompile-executable "python3")
+(setq python-shell-interpreter "python3"
+      flycheck-python-pycompile-executable "python3")
 
 ;; including based on recommendation from link:
 ;; https://github.com/hlissner/doom-emacs/tree/develop/modules/lang/python
@@ -141,6 +130,10 @@
   (setq projectile-sort-order 'recentf
         projectile-auto-discover 'nil)
   (add-to-list 'projectile-globally-ignored-directories '"build"))
+;; find the repo's you want above home
+(after! magit
+  (setq magit-repository-directories
+        '(("~/" . 1))))
 
 ;; c++ projects:
 ;; we want the svsc_irs project separate:

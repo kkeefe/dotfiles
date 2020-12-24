@@ -97,6 +97,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# alias to get around:
+alias lib='cd /home/kpkeefe/Documents/pyrootLib'
+alias doc='cd /home/kpkeefe/Documents/'
+alias py='cd /home/kpkeefe/Documents/py_Basic'
+alias rl='cd /home/kpkeefe/Documents/rootLib'
+alias src='src ~/.bashrc'
+
 # ROOT cern things to be able to see stuff on the windows side
 source /home/kpkeefe/root_builds/root/build/bin/thisroot.sh
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0

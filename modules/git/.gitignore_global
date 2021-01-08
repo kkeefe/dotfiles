@@ -43,6 +43,7 @@ __pycache__
 .vs_code
 
 
-# ROOT and Emac Stuff #
-#######################
+# ROOT and Emacs Stuff #
+########################
 *.root
+build

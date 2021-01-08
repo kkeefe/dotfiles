@@ -1,3 +1,5 @@
 [user]
 	email = kevinpk@hawaii.edu
 	name = kkeefe
+[core]
+	excludesFile = ~/.gitignore_global

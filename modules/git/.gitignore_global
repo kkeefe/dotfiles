@@ -46,3 +46,4 @@ __pycache__
 # ROOT and Emac Stuff #
 #######################
 *.root
+.DS_STORE

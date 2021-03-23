@@ -43,7 +43,11 @@ __pycache__
 .vs_code
 
 
-# ROOT and Emac Stuff #
-#######################
+# ROOT and Emacs Stuff #
+########################
 *.root
+<<<<<<< HEAD
 .DS_STORE
+=======
+build
+>>>>>>> f7103b0d96e2a69b5ef0f6d85f47f3bfe11c6c1b

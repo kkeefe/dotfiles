@@ -1,0 +1,20 @@
+# taken from cern root website
+# Path used by dynamic loader to find shared libraries
+Unix.*.Root.DynamicPath:  .:~/rootlibs:$(ROOTSYS)/lib
+Unix.*.Root.MacroPath:    .:~/rootmacros:$(ROOTSYS)/macros
+
+# Path where to look for TrueType fonts
+Unix.*.Root.UseTTFonts:     true
+Unix.*.Root.TTFontPath:
+...
+# Activate memory statistics
+Rint.Root.MemStat:       1
+Rint.Load:               rootalias.C
+Rint.Logon:              rootlogon.C
+Rint.Logoff:             rootlogoff.C
+...
+Rint.Canvas.MoveOpaque:  false
+Rint.Canvas.HighLightColor: 5
+# save a more comprehensive history
+Rint.HistSize:         5000
+Rint.HistSave:         1

@@ -97,6 +97,13 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
+# alias to get around:
+alias lib='cd /home/kpkeefe/Documents/pyrootLib'
+alias doc='cd /home/kpkeefe/Documents/'
+alias py='cd /home/kpkeefe/Documents/py_Basic'
+alias rl='cd /home/kpkeefe/Documents/rootLib'
+alias src='src ~/.bashrc'
+
 # ROOT cern things to be able to see stuff on the windows side
 source /home/kpkeefe/root_builds/root/build/bin/thisroot.sh
 export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
@@ -139,3 +146,19 @@ PS1='$(show_virtual_env)'$PS1
 
 # direnv
 eval "$(direnv hook bash)"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/kpkeefe/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/kpkeefe/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/kpkeefe/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/kpkeefe/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

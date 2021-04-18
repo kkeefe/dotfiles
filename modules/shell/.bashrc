@@ -102,7 +102,8 @@ alias lib='cd /home/kpkeefe/Documents/pyrootLib'
 alias doc='cd /home/kpkeefe/Documents/'
 alias py='cd /home/kpkeefe/Documents/py_Basic'
 alias rl='cd /home/kpkeefe/Documents/rootLib'
-alias src='src ~/.bashrc'
+alias src='source ~/.bashrc'
+alias vrc='vim ~/.vim/vimrc'
 
 # ROOT cern things to be able to see stuff on the windows side
 source /home/kpkeefe/root_builds/root/build/bin/thisroot.sh
@@ -119,6 +120,15 @@ alias q='exit'
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+alias work3="cd ~/Documents/SVSC-Work-Stations/Workstation3/"
+alias gui="cd ~/Documents/eevee/"
+alias doc="cd ~/Documents"
+alias k1="kill %1"
+alias ssh2="ssh -X ntcuser@168.105.242.250"
+alias ssh3="ssh -Y ntcuser@168.105.234.62"
+# for updating x11 for the mtc machine:
+# $: defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
+alias mtc="ssh -Y -p 25260 kevinpk@mtc-b.phys.hawaii.edu"
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -146,19 +156,3 @@ PS1='$(show_virtual_env)'$PS1
 
 # direnv
 eval "$(direnv hook bash)"
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/kpkeefe/anaconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/kpkeefe/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/kpkeefe/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/kpkeefe/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-

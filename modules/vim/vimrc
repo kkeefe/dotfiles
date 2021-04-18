@@ -35,9 +35,9 @@ Plugin 'git://git.wincent.com/command-t.git'
 " git repos on your local machine (i.e. when working on your own plugin)
 " Pass the path to set the runtimepath properly.
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'vim-scripts/indentpython.vim' " python
+" Plugin 'vim-scripts/indentpython.vim' " python
 Plugin 'bfrg/vim-cpp-modern' " cpp
-Plugin 'vim-syntastic/syntastic'
+" Plugin 'vim-syntastic/syntastic'
 Plugin 'nvie/vim-flake8'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
@@ -95,11 +95,14 @@ set showmode                    "Show current mode down the bottom
 set gcr=a:blinkon0              "Disable cursor blink
 set autoread                    "Reload files changed outside vim
 set hls
+set visualbell
+set t_vb=
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
+autocmd TextYankPost * call system('echo '.shellescape(join(v:event.regcontents, "\<CR>")).' |  clip.exe')
 
 "turn on syntax highlighting
 syntax on
@@ -130,9 +133,9 @@ set nowb
 set autoindent
 set smartindent
 set smarttab
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set expandtab
 set ignorecase
 set smartcase

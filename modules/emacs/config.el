@@ -23,7 +23,6 @@
       user-mail-address "kevinpk@hawaii.edu"
       doom-theme 'doom-dracula)
 
-<<<<<<< HEAD
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -37,13 +36,8 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-font (font-spec :family "Monaco" :size 14 :weight 'semi-light)
-      doom-variable-pitch-font (font-spec :family "Menlo" :size 13))
-=======
-;;; fonts
-;; (setq doom-font (font-spec :family "Fira Code" :size 16 :weight 'semi-light)
-;;       doom-variable-pitch-font (font-spec :family "monospace" :size 14))
->>>>>>> f7103b0d96e2a69b5ef0f6d85f47f3bfe11c6c1b
+;; (setq doom-font (font-spec :family "Monaco" :size 14 :weight 'semi-light))
+      ;; doom-variable-pitch-font (font-spec :family "Menlo" :size 13))
 
 ;;; keybindings
 ;; set this because i'm tired of accidentally reverting..
@@ -83,6 +77,7 @@
           ("b" "breakthroughs" entry (file+headline "~/org/todo.org" "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
+
 ;;; things for google calendar syncing..
 ;; (setq org-gcal-client-id "961006309840-31rc93jb94bqvf0oj3s0bb4qbq86aes0.apps.googleusercontent.com"
 ;;       org-gcal-client-secret "qC8jc8BBJEPFtTs8mvJEm9RX"
@@ -156,6 +151,11 @@
 ;; c++ projects:
 ;; we want the svsc_irs project separate:
 ;; (projectile-register-project-type 'svsc_irs')
+(defvar org-babel-default-header-args:C++
+  '((:flags . "$(root-config --cflags) -O0")
+    (:libs . "$(root-config --libs)")
+    (:includes . [list "<iostream>" "<vector>" "TCanvas.h"])))
+
 
 ;; python projects:
 

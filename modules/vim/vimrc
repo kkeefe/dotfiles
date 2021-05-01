@@ -115,7 +115,6 @@ set encoding=utf-8
 let mapleader = " "
 
 " ================ Turn Off Swap Files ==============
-
 set noswapfile
 set nobackup
 set nowb

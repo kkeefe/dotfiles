@@ -152,8 +152,8 @@
 ;; we want the svsc_irs project separate:
 ;; (projectile-register-project-type 'svsc_irs')
 (defvar org-babel-default-header-args:C++
-  '((:flags . "$(root-config --cflags) -O0")
-    (:libs . "$(root-config --libs)")
+  ;; need to include this in libs so that babel passes these arguments after main.cc or whatever babel uses
+  '((:libs . "$(root-config --libs) $(root-config --cflags) -O0 -I$(pwd) -I$(pwd)/include/")
     (:includes . [list "<iostream>" "<vector>" "TCanvas.h"])))
 
 

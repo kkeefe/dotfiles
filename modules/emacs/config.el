@@ -50,19 +50,19 @@
       (:prefix "q"
         :n "l" #'evil-window-right
         :n "h" #'evil-window-left))
+
 ;; Switch to the new window after splitting
 (setq evil-split-window-below t
       evil-vsplit-window-right t
       display-line-numbers-type t
       default-directory "~/")
 
-;;
-(setq org-roam-directory "/Users/kevinkeefe/Dropbox/org/roam")
-
+;; config for windows box to point things to dropbox from wsl
 ;; for configuring more org things we want
+(setq org-directory "/mnt/c/Users/keefe/Dropbox/org"
+      org-roam-directory "/mnt/c/Users/keefe/Dropbox/org/roam")
 (after! org
-  (setq org-directory "/Users/kevinkeefe/Dropbox/org"
-        org-list-allow-alphabetical t
+  (setq org-list-allow-alphabetical t
         org-default-notes-file (concat org-directory "notes.org")
         org-archive-location (concat org-directory "archive.org::* From %s")
         org-agenda-files '("/Users/kevinkeefe/Dropbox/org/README.org"
@@ -71,13 +71,13 @@
                            "/Users/kevinkeefe/Dropbox/org/gcal.org")
         ;; list of custom org templates
         org-capture-templates
-        '(("w" "work" entry (file+headline "~/org/todo.org" "Work Tasks")
+        '(("w" "work" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Work Tasks")
           "* TODO %?\n:Description:\n %^t \n %i \n" :prepend t)
-          ("p" "code problems" entry (file+headline "~/org/todo.org" "Current Bugs")
+          ("p" "code problems" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Current Bugs")
           "* TODO %?\n:Description:\n \n%i %a\n" :prepend t)
-          ("s" "self-stuff" entry (file+headline "~/org/todo.org" "Self Tasks")
+          ("s" "self-stuff" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Self Tasks")
           "* TODO %?\n:Description:\n \n %i \n" :prepend t)
-          ("b" "breakthroughs" entry (file+headline "~/org/todo.org" "Breakthroughs!")
+          ("b" "breakthroughs" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
@@ -156,8 +156,8 @@
 ;; (projectile-register-project-type 'svsc_irs')
 (defvar org-babel-default-header-args:C++
   ;; need to include this in libs so that babel passes these arguments after main.cc or whatever babel uses
-  '((:libs . "$(root-config --libs) $(root-config --cflags) -O0 -I$(pwd) -I$(pwd)/include/")
-    (:includes . [list "<iostream>" "<vector>" "TCanvas.h"])))
+  '((:libs . "$(root-config --libs) $(root-config --cflags) -I$(pwd) -I$(pwd)/include/")
+    (:includes . "<iostream>")))
 
 
 ;; python projects:

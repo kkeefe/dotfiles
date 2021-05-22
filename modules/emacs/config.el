@@ -56,16 +56,19 @@
       display-line-numbers-type t
       default-directory "~/")
 
+;;
+(setq org-roam-directory "/Users/kevinkeefe/Dropbox/org/roam")
+
 ;; for configuring more org things we want
 (after! org
-  (setq org-directory "~/org/"
+  (setq org-directory "/Users/kevinkeefe/Dropbox/org"
         org-list-allow-alphabetical t
         org-default-notes-file (concat org-directory "notes.org")
         org-archive-location (concat org-directory "archive.org::* From %s")
-        org-agenda-files '("~/org/README.org"
-                           "~/org/todo.org"
-                           "~/org/journal.org"
-                           "~/org/gcal.org")
+        org-agenda-files '("/Users/kevinkeefe/Dropbox/org/README.org"
+                           "/Users/kevinkeefe/Dropbox/org/todo.org"
+                           "/Users/kevinkeefe/Dropbox/org/journal.org"
+                           "/Users/kevinkeefe/Dropbox/org/gcal.org")
         ;; list of custom org templates
         org-capture-templates
         '(("w" "work" entry (file+headline "~/org/todo.org" "Work Tasks")

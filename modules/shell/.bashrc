@@ -154,5 +154,7 @@ show_virtual_env() {
 
 PS1='$(show_virtual_env)'$PS1
 
+alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
+
 # direnv
 eval "$(direnv hook bash)"

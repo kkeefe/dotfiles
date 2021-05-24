@@ -80,7 +80,8 @@
           "* TODO %?\n:Description:\n \n %i \n" :prepend t)
           ("b" "breakthroughs" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
-  (advice-add 'org-refile :after 'org-save-all-org-buffers))
+  (advice-add 'org-refile :after 'org-save-all-org-buffers)
+  (org-babel-do-load-languages 'org-babel-load-languages '((sql . t))))
 
 ;;; things for google calendar syncing..
 ;; (setq org-gcal-client-id "961006309840-31rc93jb94bqvf0oj3s0bb4qbq86aes0.apps.googleusercontent.com"

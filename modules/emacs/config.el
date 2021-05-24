@@ -23,6 +23,12 @@
       user-mail-address "kevinpk@hawaii.edu"
       doom-theme 'doom-dracula)
 
+;; figure out what os we're on when we're loading this
+(if (eq system-type 'darwin)
+    (defvar sys-home "~/")
+  (defvar sys-home "/mnt/c/Users/keefe")
+  sys-home)
+
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
 ;;
@@ -36,8 +42,9 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-;; (setq doom-font (font-spec :family "Monaco" :size 14 :weight 'semi-light))
-      ;; doom-variable-pitch-font (font-spec :family "Menlo" :size 13))
+(if (eq system-type 'darwin)
+        (setq doom-font (font-spec :family "Monaco" :size 14 :weight 'semi-light)
+              doom-variable-pitch-font (font-spec :family "Menlo" :size 13)))
 
 ;;; keybindings
 ;; set this because i'm tired of accidentally reverting..
@@ -55,29 +62,29 @@
 (setq evil-split-window-below t
       evil-vsplit-window-right t
       display-line-numbers-type t
-      default-directory "~/")
+      default-directory sys-home)
 
 ;; config for windows box to point things to dropbox from wsl
 ;; for configuring more org things we want
-(setq org-directory "/mnt/c/Users/keefe/Dropbox/org"
-      org-roam-directory "/mnt/c/Users/keefe/Dropbox/org/roam")
+(setq org-directory (concat sys-home  "Dropbox/org")
+      org-roam-directory (concat sys-home  "Dropbox/org/roam"))
 (after! org
   (setq org-list-allow-alphabetical t
         org-default-notes-file (concat org-directory "notes.org")
         org-archive-location (concat org-directory "archive.org::* From %s")
-        org-agenda-files '("/Users/kevinkeefe/Dropbox/org/README.org"
-                           "/Users/kevinkeefe/Dropbox/org/todo.org"
-                           "/Users/kevinkeefe/Dropbox/org/journal.org"
-                           "/Users/kevinkeefe/Dropbox/org/gcal.org")
+        org-agenda-files '((concat sys-home "/Dropbox/org/README.org")
+                           (concat sys-home "/Dropbox/org/todo.org")
+                           (concat sys-home "/Dropbox/org/journal.org")
+                           (concat sys-home "/Dropbox/org/gcal.org"))
         ;; list of custom org templates
         org-capture-templates
-        '(("w" "work" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Work Tasks")
+        '(("w" "work" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Work Tasks")
           "* TODO %?\n:Description:\n %^t \n %i \n" :prepend t)
-          ("p" "code problems" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Current Bugs")
+          ("p" "code problems" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Current Bugs")
           "* TODO %?\n:Description:\n \n%i %a\n" :prepend t)
-          ("s" "self-stuff" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Self Tasks")
+          ("s" "self-stuff" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Self Tasks")
           "* TODO %?\n:Description:\n \n %i \n" :prepend t)
-          ("b" "breakthroughs" entry (file+headline "/mnt/c/Users/keefe/Dropbox/org/todo.org" "Breakthroughs!")
+          ("b" "breakthroughs" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers))
 
@@ -158,7 +165,6 @@
   ;; need to include this in libs so that babel passes these arguments after main.cc or whatever babel uses
   '((:libs . "$(root-config --libs) $(root-config --cflags) -I$(pwd) -I$(pwd)/include/")
     (:includes . "<iostream>")))
-
 
 ;; python projects:
 

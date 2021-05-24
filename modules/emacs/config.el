@@ -26,7 +26,7 @@
 ;; figure out what os we're on when we're loading this
 (if (eq system-type 'darwin)
     (defvar sys-home "~/")
-  (defvar sys-home "/mnt/c/Users/keefe")
+  (defvar sys-home "/mnt/c/Users/keefe/")
   sys-home)
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
@@ -70,21 +70,22 @@
       org-roam-directory (concat sys-home  "Dropbox/org/roam"))
 (after! org
   (setq org-list-allow-alphabetical t
-        org-default-notes-file (concat org-directory "notes.org")
-        org-archive-location (concat org-directory "archive.org::* From %s")
-        org-agenda-files '((concat sys-home "/Dropbox/org/README.org")
-                           (concat sys-home "/Dropbox/org/todo.org")
-                           (concat sys-home "/Dropbox/org/journal.org")
-                           (concat sys-home "/Dropbox/org/gcal.org"))
+        org-default-notes-file (concat org-directory "/notes.org")
+        org-archive-location (concat org-directory "/archive.org::* From %s")
+        org-agenda-files `(,(concat sys-home "Dropbox/org/README.org")
+                           ,(concat sys-home "Dropbox/org/todo.org")
+                           ,(concat sys-home "Dropbox/org/journal.org")
+                           ,(concat sys-home "Dropbox/org/inbox.org")
+                           ,(concat sys-home "Dropbox/org/gcal.org"))
         ;; list of custom org templates
         org-capture-templates
-        '(("w" "work" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Work Tasks")
+        `(("w" "work" entry (file+headline ,(concat sys-home "Dropbox/org/todo.org") "Work Tasks")
           "* TODO %?\n:Description:\n %^t \n %i \n" :prepend t)
-          ("p" "code problems" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Current Bugs")
+          ("p" "code problems" entry (file+headline ,(concat sys-home "Dropbox/org/todo.org") "Current Bugs")
           "* TODO %?\n:Description:\n \n%i %a\n" :prepend t)
-          ("s" "self-stuff" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Self Tasks")
+          ("s" "self-stuff" entry (file+headline ,(concat sys-home "Dropbox/org/todo.org") "Self Tasks")
           "* TODO %?\n:Description:\n \n %i \n" :prepend t)
-          ("b" "breakthroughs" entry (file+headline (concat sys-home "Dropbox/org/todo.org") "Breakthroughs!")
+          ("b" "breakthroughs" entry (file+headline ,(concat sys-home "Dropbox/org/todo.org") "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
   (org-babel-do-load-languages 'org-babel-load-languages '((sql . t))))

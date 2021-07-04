@@ -59,6 +59,8 @@
         :n "h" #'evil-window-left))
 (map! :n "C-c d"
       '(lambda () (interactive) (dired default-directory)))
+(map! :n "C-c x"
+      '(dired))
 
 ;; Switch to the new window after splitting
 (setq evil-split-window-below t

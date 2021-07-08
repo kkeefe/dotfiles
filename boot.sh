@@ -81,7 +81,7 @@ function getOhMyZsh() {
     upgrade_oh_my_zsh
 }
 
-pip3 install numpy matplotlib pytest scipy isort pipenv nose pandas tensorflow
+pip3 install numpy matplotlib pytest scipy isort pipenv nose pandas
 
 shellFiles=(".bashrc" ".bash_profile")
 shellPath="$HOME" # shell files are directly at home..

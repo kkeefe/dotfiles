@@ -16,17 +16,24 @@ HISTCONTROL=ignoreboth
 shopt -s histappend
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=10000
-HISTFILESIZE=10000
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# doom emacs pathing
+PATH=$PATH:~/.emacs.d/bin
+
+# pip3 pathing 
+PATH=$PATH:~/.local/bin
+
+# x410 pathing to see windows
+export DISPLAY=127.0.0.1:0.0
+
+# getting cern ROOT to work
+source /home/kpkeefe/root_build/bin/thisroot.sh
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-
-export PATH="~/.local/bin":$PATH
-
-# get the doom path
-export PATH="/home/kpkeefe/.emacs.d/bin":$PATH
 
 # If set, the pattern "**" used in a pathname expansion context will
 # match all files and zero or more directories and subdirectories.
@@ -93,33 +100,15 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
-
-# alias to get around:
-alias lib='cd /home/kpkeefe/Documents/pyrootLib'
-alias doc='cd /home/kpkeefe/Documents/'
-alias py='cd /home/kpkeefe/Documents/py_Basic'
-alias rl='cd /home/kpkeefe/Documents/rootLib'
-alias src='source ~/.bashrc'
-alias vrc='vim ~/.vim/vimrc'
-
-# ROOT cern things to be able to see stuff on the windows side
-source /home/kpkeefe/root_builds/root/build/bin/thisroot.sh
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2; exit;}'):0.0
-# export DISPLAY="localhost:0"
-
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
-alias e='emacs &'
-alias q='exit'
-
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
 # See /usr/share/doc/bash-doc/examples in the bash-doc package.
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+alias e='emacs &'
+alias q='exit'
 alias work3="cd ~/Documents/SVSC-Work-Stations/Workstation3/"
 alias gui="cd ~/Documents/eevee/"
 alias doc="cd ~/Documents"
@@ -128,7 +117,22 @@ alias ssh2="ssh -X ntcuser@168.105.242.250"
 alias ssh3="ssh -Y ntcuser@168.105.234.62"
 # for updating x11 for the mtc machine:
 # $: defaults write org.macosforge.xquartz.X11 enable_iglx -bool true
+# password is thisismyDes(F1)gn
 alias mtc="ssh -Y -p 25260 kevinpk@mtc-b.phys.hawaii.edu"
+# aliases for r-syncing
+alias pull_svsc="rsync -arvz -e 'ssh -p 25260' --exclude '*.root' kevinpk@mtc-b.phys.hawaii.edu:/home/kevinpk/Documents/SVSC/ /mnt/c/Users/keefe/Documents/research/SVSC/"
+alias push_svsc="rsync -arvz -e 'ssh -p 25260' --exclude '.git' --exclude '*.root' /mnt/c/Users/keefe/Documents/research/SVSC/ kevinpk@mtc-b.phys.hawaii.edu:/home/kevinpk/Documents/SVSC/"
+alias pull_osmo="rsync -arvz -e 'ssh -p 25260' --exclude '*.root' kevinpk@mtc-b.phys.hawaii.edu:/home/kevinpk/Documents/SVSC/doc/2020_OSModule_Paper/ /mnt/c/Users/keefe/Documents/research/SVSC/doc/2020_OSModule_Paper/"
+alias push_osmo="rsync -arvz -e 'ssh -p 25260' --exclude '.git' --exclude '*.root' /mnt/c/Users/keefe/Documents/research/SVSC/doc/2020_OSModule_Paper/ kevinpk@mtc-b.phys.hawaii.edu:/home/kevinpk/Documents/SVSC/doc/2020_OSModule_Paper/"
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
@@ -144,17 +148,3 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
-
-# direnv
-show_virtual_env() {
-  if [ -n "$VIRTUAL_ENV" ]; then
-    echo "($(basename $VIRTUAL_ENV))"
-  fi
-}
-
-PS1='$(show_virtual_env)'$PS1
-
-alias jupyter-notebook="~/.local/bin/jupyter-notebook --no-browser"
-
-# direnv
-eval "$(direnv hook bash)"

@@ -124,6 +124,14 @@
 ;; ;; using homebrew to manage root now.. fixing tf1 import errors and switching to manage python with pyenv 07/06/2020
 ;; (setq irony-additional-clang-options
 ;;       (append '("-I" "/usr/local/Cellar/root/6.22.00_1/include/root") irony-additional-clang-options))
+(setq lsp-clients-clangd-args '("-j=3"
+                                "--background-index"
+                                "--clang-tidy"
+                                "--completion-style=detailed"
+                                "--header-insertion=never"
+                                "--header-insertion-decorators=0"))
+(after! lsp-clangd (set-lsp-priority! 'clangd 2))
+(after! lsp-clangd (setq lsp-clangd-binary-path "/usr/bin/clangd-9"))
 
 ;;; debug things, related to LSP
 (require 'dap-python)

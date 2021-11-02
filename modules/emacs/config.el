@@ -92,6 +92,7 @@
           ("b" "breakthroughs" entry (file+headline ,(concat sys-home "Dropbox/org/todo.org") "Breakthroughs!")
           "* DONE %?\n:Description:\n%^T\n%i \n" :prepend t)))
   (advice-add 'org-refile :after 'org-save-all-org-buffers)
+  ;;(setq org-clock-sound "/mnt/c/Users/keefe/Desktop/ffxiv_level_up.wav")
   (org-babel-do-load-languages 'org-babel-load-languages '((sql . t))))
 
 ;;; things for google calendar syncing..

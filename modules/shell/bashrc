@@ -27,6 +27,8 @@ PATH=$PATH:~/.local/bin
 
 # x410 pathing to see windows
 export DISPLAY=127.0.0.1:0.0
+export XILINXD_LICENSE_FILE="2100@hepflexlm.phys.hawaii.edu"
+export LM_LICENSE_FILE="2100@hepflexlm.phys.hawaii.edu"
 
 # getting cern ROOT to work
 source /home/kpkeefe/root_build/bin/thisroot.sh

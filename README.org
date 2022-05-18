@@ -288,3 +288,40 @@ This section should describe relevant ROOT download sources, and appropriate CMa
 This section should describe relevant Geant4 download sources, and appropriate CMake arguments..
 
 NOTE: this should be built and sourced AFTER ROOT
+
+** personal ubuntu stored installed:
+
+   sudo apt install ./zoom_amd64.deb 
+   sudo apt install libncurses5-dev
+   sudo apt install libncursesw5-dev
+   sudo apt install libncurses5
+   sudo apt install libtinfo5
+   sudo apt install libtinfo-dev
+   sudo apt-get install libstdc++6:i386
+   sudo apt install ncurses-compat-libs
+   sudo apt install cmake
+   sudo apt-get install dpkg-dev cmake g++ gcc binutils libx11-dev libxpm-dev libxft-dev libxext-dev libssl-dev
+   sudo apt-get install gfortran libpcre3-dev xlibmesa-glu-dev libftgl-dev libmysqlclient-dev libfftw3-dev libcfitsio-dev graphviz-dev libavahi-compat-libdnssd-dev libldap2-dev libxml2-dev libkrb5-dev libgsl0-dev qtwebengine5-dev
+   sudo apt install git
+   sudo apt install vim
+   sudo apt-get install gnome-tweak-tool -y && gnome-tweak-tool
+   sudo apt install gnome-tweak-tool
+   sudo apt install net-tools
+   sudo apt-get install toolkit
+   sudo apt-get install libXaw
+   sudo apt install libxaw7-dev
+   sudo apt install libjpeg-dev
+   sudo apt install libgif-dev
+   sudo apt install libtiff-dev
+   sudo apt install gnutls
+   sudo apt install libapache2-mod-gnutls
+   sudo apt install gnutls-bin
+   sudo apt install gnutls-dev
+   apt-get install autoconf
+   sudo apt-get install autoconf
+   sudo apt install touchpad-indicator
+   sudo apt install dconf-editor
+   sudo apt-get install dconf-tools
+   sudo apt install build-essential texinfo libx11-dev libxpm-dev libjpeg-dev libpng-dev libgif-dev libtiff-dev libgtk2.0-dev libncurses-dev libgnutls28-dev
+   sudo make install
+   sudo apt-get install cmake

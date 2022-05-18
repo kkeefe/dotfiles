@@ -24,8 +24,9 @@
       doom-theme 'doom-dracula)
 
 ;; figure out what os we're on when we're loading this
-(if (eq system-type 'darwin)
+(if (or (eq system-type 'darwin) (eq system-type 'gnu/linux))
     (defvar sys-home "~/")
+  ;; running on windows wsl
   (defvar sys-home "/mnt/c/Users/keefe/")
   sys-home)
 

@@ -74,7 +74,7 @@ filetype plugin indent on     " required!
 " NOTE: comments after Bundle command are not allowed..
 
 " Color theme (drawing from altercation/vim-colors-solarized Bundle)
-packadd! dracula
+" packadd! dracula
 syntax enable
 colorscheme dracula
 " terminal colors

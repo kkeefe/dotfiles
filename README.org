@@ -282,6 +282,10 @@ Dedicated program depencies. Mostly created specifically to address ROOT depeden
 
 This section should describe relevant ROOT download sources, and appropriate CMake arguments..
 
+** TODO GTK / Verilog / Verilator
+
+# guide for installing the gtkwave and dependencies found here
+https://nisssal.wixsite.com/knowhow/post/run-gtkwave-in-wsl
 
 ** TODO Geant4
 

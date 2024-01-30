@@ -217,4 +217,3 @@
 ;;     (smtpmail-smtp-user     . "keefekevin91@gmail.com")
 ;;     (mu4e-compose-signature . "---\nKevin Keefe"))
 ;;   t)
-;;;

@@ -1,0 +1,7 @@
+need the config yaml file for clangd to work for cc lsp
+
+
+found solution at https://github.com/clangd/clangd/issues/1564
+
+
+the file will go at ~/.config/clangd/config.yaml

@@ -133,6 +133,29 @@ alias push_osmo="rsync -arvz -e 'ssh -p 25260' --exclude '.git' --exclude '*.roo
 #   sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
+## required config for nautilus ubuntu 22 qpixg4 build
+# include emacs
+export PATH=/home/papahuhu/Programs/emacs/bin:$PATH
+# include fd
+export PATH=$HOME/.local/bin:$PATH
+# include ripgrep
+export PATH=$HOME/Programs/ripgrep-13:$PATH
+# root pathing
+export PATH=$HOME/Programs/root_v6-28-12/bin:$PATH
+
+# exports for other GENIE builds
+export GENIE=$HOME/Programs/GENIE/Generator
+export ROOTSYS=$HOME/Programs/root_v6-28-12
+export PYTHIA6=$HOME/Programs/pythia6/v6_428
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$ROOTSYS/lib:$GENIE/lib:$PYTHIA6/lib:$HOME/Library/TMP/lib
+export PATH=$PATH:$ROOTSYS/bin:$GENIE/bin
+export LHAPATH=$HOME/Programs/GENIE/Generator/data/evgen/pdfs
+source $ROOTSYS/bin/thisroot.sh
+source $HOME/Programs/geant4_install/bin/geant4.sh
+source $HOME/Programs/marley/setup_marley.sh
+# export G4INCLUDES=$HOME/Programs/geant4_install/include/Geant4
+CPLUS_INCLUDE_PATH=$CPLUS_INCLUDE_PATH:$HOME/Programs/geant4_install/include/Geant4
+
 # Alias definitions.
 # You may want to put all your additions into a separate file like
 # ~/.bash_aliases, instead of adding them here directly.
